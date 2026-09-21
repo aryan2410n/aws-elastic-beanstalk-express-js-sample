@@ -27,8 +27,15 @@ pipeline {
 
         stage('Security Scan') {
             steps {
+                sh 'npm audit --json > npm-audit.json || true'
                 sh 'npm audit --audit-level=high'
             }
         }
     }
+    post {
+        always {
+            archiveArtifacts artifacts: 'npm-audit.json', fingerprint: true
+        }
+    }
 }
+
