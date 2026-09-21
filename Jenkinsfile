@@ -2,8 +2,7 @@ pipeline {
     agent {
         docker {
             image 'assessment2-jenkins-node16'
-args '-u root --network isec6000-assessment2-jenkins_ci_network -e DOCKER_HOST=tcp://docker:2376 -e DOCKER_CERT_PATH=/certs/client -e DOCKER_TLS_VERIFY=1 -v /opt/jenkins-docker-certs:/certs/client:ro'
-
+            args '-u root --add-host docker:172.18.0.2 -e DOCKER_HOST=tcp://docker:2376 -e DOCKER_CERT_PATH=/certs/client -e DOCKER_TLS_VERIFY=1 -v /opt/jenkins-docker-certs:/certs/client:ro'
         }
     }
 
