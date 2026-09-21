@@ -2,14 +2,8 @@ pipeline {
     agent {
         docker {
             image 'assessment2-jenkins-node16'
-            args '-u root -v isec6000-assessment2-jenkins_docker_certs:/certs/client:ro'
+            args '-u root -e DOCKER_HOST=tcp://docker:2376 -e DOCKER_CERT_PATH=/certs/client -e DOCKER_TLS_VERIFY=1 -v isec6000-assessment2-jenkins_docker_certs:/certs/client:ro'
         }
-    }
-
-    environment {
-        DOCKER_HOST = 'tcp://docker:2376'
-        DOCKER_CERT_PATH = '/certs/client'
-        DOCKER_TLS_VERIFY = '1'
     }
 
     stages {
