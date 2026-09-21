@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:16'
+            image 'image 'assessment2-jenkins-node16'
             args '-u root'
         }
     }
