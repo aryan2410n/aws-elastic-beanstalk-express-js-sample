@@ -21,7 +21,23 @@ pipeline {
 
         stage('Docker Image') {
             steps {
-                sh 'docker build -t assessment2-node-app .'
+                sh 'docker build -t aryn2410/assessment2-node-app:latest .'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub',
+                    usernameVariable: 'DOCKERHUB_USERNAME',
+                    passwordVariable: 'DOCKERHUB_TOKEN'
+                )]) {
+                    sh '''
+                        echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                        docker push aryn2410/assessment2-node-app:latest
+                        docker logout
+                    '''
+                }
             }
         }
 
